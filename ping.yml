@@ -1,0 +1,6 @@
+---
+- name: Ping Host
+  gather_facts: no  
+  tasks:
+    - name: Ping the host
+      ping:
