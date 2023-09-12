@@ -1,0 +1,42 @@
+---
+- name: Configure UFW Firewall
+  hosts: all
+  become: yes
+  tasks:
+    - name: Set UFW default policies
+      ufw:
+        policy: deny
+        direction: incoming
+
+    - name: Allow outgoing traffic
+      ufw:
+        policy: allow
+        direction: outgoing
+
+    - name: Allow SSH access from 10.2.3.0/24
+      ufw:
+        rule: allow
+        src: 10.2.3.0/24
+        port: 22
+
+    - name: Allow SSH access from 10.2.2.0/24
+      ufw:
+        rule: allow
+        src: 10.2.2.0/24
+        port: 22
+
+    - name: Allow SSH access from 100.125.106.38
+      ufw:
+        rule: allow
+        src: 100.125.106.38
+        port: 22
+
+    - name: Enable UFW
+      ufw:
+        state: enabled
+
+    - name: Reload UFW
+      command: ufw reload
+
+    - name: Check UFW status
+      command: ufw status
